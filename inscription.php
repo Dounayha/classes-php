@@ -17,13 +17,21 @@ $user = new User($connexion);
 
 $result = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $result = $user->register(
+    $success = $user->register(
         $_POST['login'],
         $_POST['password'],
         $_POST['email'],
         $_POST['firstname'],
         $_POST['lastname']
-    ) ? 'Inscription réussie.' : 'Échec de l\'inscription.';
+    );
+    
+    if ($success) {
+        // Redirection vers la page de connexion
+        header('Location: connexion.php');
+        exit();
+    } else {
+        $result = 'Échec de l\'inscription.';
+    }
 }
 ?>
 
@@ -43,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label>Email: <input type="email" name="email" required></label><br>
         <label>Firstname: <input type="text" name="firstname" required></label><br>
         <label>Lastname: <input type="text" name="lastname" required></label><br>
-        <input type="submit" value="Register">
+        <input type="submit" value="S'inscrire">
     </form>
     <a href="index.php">Retour à l'accueil</a>
 </body>

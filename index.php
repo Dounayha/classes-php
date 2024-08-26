@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
-    <style>
-        a { display: block; margin-bottom: 10px; }
-    </style>
+    
 </head>
 <body>
     <h1>Accueil</h1>

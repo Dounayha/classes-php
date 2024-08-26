@@ -1,4 +1,6 @@
 <?php
+session_start(); // Démarre la session
+
 require_once 'User.php';
 
 // Connexion à la base de données
@@ -17,7 +19,15 @@ $user = new User($connexion);
 
 $result = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $result = $user->connect($_POST['login'], $_POST['password']) ? 'Connexion réussie.' : 'Échec de la connexion.';
+    if ($user->connect($_POST['login'], $_POST['password'])) {
+        // Stocker les informations de l'utilisateur dans la session
+        $_SESSION['user'] = $user->getAllInfos();
+        // Rediriger vers la page de modification
+        header('Location: modifier.php');
+        exit();
+    } else {
+        $result = 'Échec de la connexion.';
+    }
 }
 ?>
 
@@ -34,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <form method="post">
         <label>Login: <input type="text" name="login" required></label><br>
         <label>Password: <input type="password" name="password" required></label><br>
-        <input type="submit" value="Connect">
+        <input type="submit" value="Connecter">
     </form>
     <a href="index.php">Retour à l'accueil</a>
 </body>
