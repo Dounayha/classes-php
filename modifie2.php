@@ -23,22 +23,35 @@ if ($connexion->connect_error) {
 require_once 'User.php';
 $user = new User($connexion);
 
-// Met à jour les informations de l'utilisateur si le formulaire est soumis
+// Gestion des actions (mise à jour ou suppression)
 $result = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $success = $user->update(
-        $_POST['login'],
-        $_POST['password'],
-        $_POST['email'],
-        $_POST['firstname'],
-        $_POST['lastname']
-    );
-    
-    if ($success) {
-        $_SESSION['user'] = $user->getAllInfos(); // Met à jour les informations dans la session
-        $result = 'Mise à jour réussie.';
-    } else {
-        $result = 'Échec de la mise à jour.';
+    if (isset($_POST['update'])) {
+        // Met à jour les informations de l'utilisateur
+        $success = $user->update(
+            $_POST['login'],
+            $_POST['password'],
+            $_POST['email'],
+            $_POST['firstname'],
+            $_POST['lastname']
+        );
+
+        if ($success) {
+            $_SESSION['user'] = $user->getAllInfos(); // Met à jour les informations dans la session
+            $result = 'Mise à jour réussie.';
+        } else {
+            $result = 'Échec de la mise à jour.';
+        }
+    } elseif (isset($_POST['delete'])) {
+        // Supprime l'utilisateur
+        if ($user->delete()) {
+            session_unset(); // Supprime toutes les variables de session
+            session_destroy(); // Détruit la session
+            header('Location: supprimer.php'); // Redirige vers la page de confirmation de suppression
+            exit();
+        } else {
+            $result = 'Échec de la suppression du compte.';
+        }
     }
 }
 
@@ -62,12 +75,14 @@ $currentUserInfo = $_SESSION['user'];
         <label>Email: <input type="email" name="email" value="<?php echo htmlspecialchars($currentUserInfo['email']); ?>" required></label><br>
         <label>Firstname: <input type="text" name="firstname" value="<?php echo htmlspecialchars($currentUserInfo['firstname']); ?>" required></label><br>
         <label>Lastname: <input type="text" name="lastname" value="<?php echo htmlspecialchars($currentUserInfo['lastname']); ?>" required></label><br>
-        <input type="submit" value="Mettre à jour">
-        <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');">
+        <input type="submit" name="update" value="Mettre à jour">
+    </form>
+
+    <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? .');">
         <input type="submit" name="delete" value="Supprimer le compte" style="color: red;">
     </form>
-    </form>
-    <a href="logout.php">Déconnexion</a>
+
+    <a href="connexion.php">Déconnexion</a>
     <a href="index.php">Retour à l'accueil</a>
 </body>
 </html>

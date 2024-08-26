@@ -10,12 +10,12 @@ class User {
     private $connected = false;
     private $mysqli;
 
-    // Constructeur
+
     public function __construct($mysqli) {
         $this->mysqli = $mysqli;
     }
 
-    // Méthode pour enregistrer un nouvel utilisateur
+    //  pour enregistrer un nouvel utilisateur
     public function register($login, $password, $email, $firstname, $lastname) {
         // Hash du mot de passe
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
@@ -36,7 +36,7 @@ class User {
         }
     }
 
-    // Méthode pour connecter un utilisateur
+    //  pour connecter un utilisateur
     public function connect($login, $password) {
         $stmt = $this->mysqli->prepare("SELECT id, password, email, firstname, lastname FROM utilisateurs WHERE login = ?");
         $stmt->bind_param("s", $login);
@@ -59,7 +59,7 @@ class User {
         return false;
     }
 
-    // Méthode pour déconnecter un utilisateur
+    // pour déconnecter un utilisateur
     public function disconnect() {
         $this->id = null;
         $this->login = null;
@@ -70,7 +70,7 @@ class User {
         $this->connected = false;
     }
 
-    // Méthode pour supprimer un utilisateur
+    //  supprimer un utilisateur
     public function delete() {
         if ($this->connected) {
             $stmt = $this->mysqli->prepare("DELETE FROM utilisateurs WHERE id = ?");
@@ -83,7 +83,7 @@ class User {
         return false;
     }
 
-    // Méthode pour mettre à jour les informations d'un utilisateur
+    // mettre à jour les informations d'un utilisateur
     public function update($login, $password, $email, $firstname, $lastname) {
         if ($this->connected) {
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
@@ -101,12 +101,12 @@ class User {
         return false;
     }
 
-    // Méthode pour vérifier si l'utilisateur est connecté
+    //  pour vérifier si l'utilisateur est connecté
     public function isConnected() {
         return $this->connected;
     }
 
-    // Méthode pour récupérer toutes les informations de l'utilisateur
+    // pour récupérer toutes les informations de l'utilisateur
     public function getAllInfos() {
         return [
             'id' => $this->id,
@@ -117,7 +117,7 @@ class User {
         ];
     }
 
-    // Méthodes pour récupérer les attributs spécifiques
+    //  pour récupérer les attributs spécifiques
     public function getLogin() {
         return $this->login;
     }
