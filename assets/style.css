@@ -111,6 +111,7 @@ form[action] {
 header {
     background-color: #dbb1bf;
     color: #fff;
+    text-decoration: none;
 }
 ul{
     list-style: none;
@@ -118,8 +119,11 @@ ul{
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
+    text-decoration: none;
 }
 a:hover{
     color: rgb(233, 210, 210);
+    text-decoration: none;
 }
+
 
