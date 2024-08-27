@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="submit" value="Connecter">
     </form>
     <a href="index.php">Retour à l'accueil</a>
-    <?php include'footer.php'?>
+    <?php include'_footer.php'?>
 
 </body>
 </html>

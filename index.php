@@ -10,7 +10,7 @@
     <h1>Accueil</h1>
     <?php include'header.php'?>
     <?php include'main.php'?>
-    <?php include'footer.php'?>
+    <?php include'_footer.php'?>
 
     
 

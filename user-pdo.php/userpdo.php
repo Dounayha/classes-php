@@ -10,12 +10,11 @@ class User {
     private $connected = false;
     private $pdo;
 
-
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
-    //  pour enregistrer un nouvel utilisateur
+    // Pour enregistrer un nouvel utilisateur
     public function register($login, $password, $email, $firstname, $lastname) {
         // Hash du mot de passe
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
@@ -35,7 +34,7 @@ class User {
         }
     }
 
-    //  pour connecter un utilisateur
+    // Pour connecter un utilisateur
     public function connect($login, $password) {
         $stmt = $this->pdo->prepare("SELECT id, password, email, firstname, lastname FROM utilisateurs WHERE login = ?");
         $stmt->execute([$login]);
@@ -54,7 +53,7 @@ class User {
         return false;
     }
 
-    // pour déconnecter un utilisateur
+    // Pour déconnecter un utilisateur
     public function disconnect() {
         $this->id = null;
         $this->login = null;
@@ -65,7 +64,7 @@ class User {
         $this->connected = false;
     }
 
-    //  supprimer un utilisateur
+    // Supprimer un utilisateur
     public function delete() {
         if ($this->connected) {
             $stmt = $this->pdo->prepare("DELETE FROM utilisateurs WHERE id = ?");
@@ -77,7 +76,7 @@ class User {
         return false;
     }
 
-    // mettre à jour les informations d'un utilisateur
+    // Mettre à jour les informations d'un utilisateur
     public function update($login, $password, $email, $firstname, $lastname) {
         if ($this->connected) {
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
@@ -94,6 +93,41 @@ class User {
         return false;
     }
 
-    //  pour vérifier si l'utilisateur est connecté
+    // Pour vérifier si l'utilisateur est connecté
     public function isConnected() {
-        return $this->connected
+        return $this->connected;  // Le point-virgule manquant est ajouté ici
+    }
+
+    // Pour récupérer toutes les informations de l'utilisateur
+    public function getAllInfos() {
+        return [
+            'id' => $this->id,
+            'login' => $this->login,
+            'email' => $this->email,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+        ];
+    }
+
+    // Pour récupérer le login
+    public function getLogin() {
+        return $this->login;
+    }
+
+    // Pour récupérer l'email
+    public function getEmail() {
+        return $this->email;
+    }
+
+    // Pour récupérer le prénom
+    public function getFirstname() {
+        return $this->firstname;
+    }
+
+    // Pour récupérer le nom de famille
+    public function getLastname() {
+        return $this->lastname;
+    }
+}
+
+?>

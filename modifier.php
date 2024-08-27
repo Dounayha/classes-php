@@ -92,7 +92,7 @@ $currentUserInfo = $_SESSION['user'];
     </form>
 
     <a href="logout.php">Déconnexion</a>
-    <?php include'footer.php'?>
+    <?php include'_footer.php'?>
 
 </body>
 </html>

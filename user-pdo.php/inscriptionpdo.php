@@ -1,5 +1,5 @@
 <?php
-require_once 'User.php';
+require_once 'Userpdo.php';
 
 // Connexion à la base de données
 $servername = "localhost";
@@ -7,10 +7,12 @@ $username = "root";
 $password = "";
 $dbname = "classes";
 
-$connexion = new mysqli($servername, $username, $password, $dbname);
-
-if ($connexion->connect_error) {
-    die("Échec de la connexion : " . $connexion->connect_error);
+try {
+    $connexion = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    // Configuration pour lancer une exception en cas d'erreur
+    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Échec de la connexion : " . $e->getMessage());
 }
 
 $user = new User($connexion);
@@ -40,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./assets/style.css" rel="stylesheet">
+    <link href="../assets/style.css" rel="stylesheet">
     <title>Inscription</title>
 </head>
 <body>
-<?php include'header.php'?>
+<?php include '../header.php'; ?>
     <h1>Inscription</h1>
     <p><?php echo $result; ?></p>
     <form method="post">
@@ -55,12 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label>Lastname: <input type="text" name="lastname" required></label><br>
         <input type="submit" value="S'inscrire">
     </form>
-    <a href="index.php">Retour à l'accueil</a>
-    <?php include'_footer.php'?>
-
+    <a href="../index.php">Retour à l'accueil</a>
+<?php include '../_footer.php'; ?>
 </body>
 </html>
 
 <?php
-$connexion->close();
+// Fermeture de la connexion
+$connexion = null;
 ?>

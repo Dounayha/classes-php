@@ -28,7 +28,7 @@ if (isset($_SESSION['user'])) {
     <form action="index.php" method="get">
         <input type="submit" value="Retour à l'accueil">
     </form>
-    <?php include'footer.php'?>
+    <?php include'_footer.php'?>
 
 </body>
 </html>
