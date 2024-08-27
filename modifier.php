@@ -23,22 +23,38 @@ if ($connexion->connect_error) {
 require_once 'User.php';
 $user = new User($connexion);
 
-// Met à jour les informations de l'utilisateur si le formulaire est soumis
+// Initialisation du résultat
 $result = '';
+
+// Met à jour les informations de l'utilisateur si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $success = $user->update(
-        $_POST['login'],
-        $_POST['password'],
-        $_POST['email'],
-        $_POST['firstname'],
-        $_POST['lastname']
-    );
-    
-    if ($success) {
-        $_SESSION['user'] = $user->getAllInfos(); // Met à jour les informations dans la session
-        $result = 'Mise à jour réussie.';
+    if (isset($_POST['delete'])) {
+        // Suppression du compte
+        $success = $user->delete(); // Assurez-vous que cette méthode est implémentée dans User.php
+        if ($success) {
+            session_unset(); // Supprime toutes les variables de session
+            session_destroy(); // Détruit la session
+            header('Location: index.php');
+            exit();
+        } else {
+            $result = 'Échec de la suppression.';
+        }
     } else {
-        $result = 'Échec de la mise à jour.';
+        // Mise à jour des informations
+        $success = $user->update(
+            $_POST['login'],
+            $_POST['password'],
+            $_POST['email'],
+            $_POST['firstname'],
+            $_POST['lastname']
+        );
+        
+        if ($success) {
+            $_SESSION['user'] = $user->getAllInfos(); // Met à jour les informations dans la session
+            $result = 'Mise à jour réussie.';
+        } else {
+            $result = 'Échec de la mise à jour.';
+        }
     }
 }
 
@@ -51,13 +67,14 @@ $currentUserInfo = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-
+    <link href="./assets/style.css" rel="stylesheet">
     <title>Modifier les informations</title>
 </head>
 <body>
     <h1>Modifier les informations</h1>
-    <p><?php echo $result; ?></p>
+    <p><?php echo htmlspecialchars($result); ?></p>
+
+    <!-- Formulaire de mise à jour des informations -->
     <form method="post">
         <label>Login: <input type="text" name="login" value="<?php echo htmlspecialchars($currentUserInfo['login']); ?>" required></label><br>
         <label>Password: <input type="password" name="password" required></label><br>
@@ -65,13 +82,15 @@ $currentUserInfo = $_SESSION['user'];
         <label>Firstname: <input type="text" name="firstname" value="<?php echo htmlspecialchars($currentUserInfo['firstname']); ?>" required></label><br>
         <label>Lastname: <input type="text" name="lastname" value="<?php echo htmlspecialchars($currentUserInfo['lastname']); ?>" required></label><br>
         <input type="submit" value="Mettre à jour">
-        <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? ');">
-        <input type="submit" name="delete" value="Supprimer le compte" >
     </form>
+
+    <!-- Formulaire de suppression du compte -->
+    <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
+        <input type="hidden" name="delete" value="1">
+        <input type="submit" value="Supprimer le compte">
     </form>
-        <a href="logout.php">Déconnexion</a>
-       
-     
+
+    <a href="logout.php">Déconnexion</a>
 </body>
 </html>
 

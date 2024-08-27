@@ -106,3 +106,20 @@ form[action] {
     display: inline-block;
     margin: 20px;
 }
+
+
+header {
+    background-color: #dbb1bf;
+    color: #fff;
+}
+ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+a:hover{
+    color: rgb(233, 210, 210);
+}
+
