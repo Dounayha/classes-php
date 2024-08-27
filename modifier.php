@@ -51,6 +51,8 @@ $currentUserInfo = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+
     <title>Modifier les informations</title>
 </head>
 <body>
@@ -63,12 +65,13 @@ $currentUserInfo = $_SESSION['user'];
         <label>Firstname: <input type="text" name="firstname" value="<?php echo htmlspecialchars($currentUserInfo['firstname']); ?>" required></label><br>
         <label>Lastname: <input type="text" name="lastname" value="<?php echo htmlspecialchars($currentUserInfo['lastname']); ?>" required></label><br>
         <input type="submit" value="Mettre à jour">
-        <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');">
-        <input type="submit" name="delete" value="Supprimer le compte" style="color: red;">
+        <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? ');">
+        <input type="submit" name="delete" value="Supprimer le compte" >
     </form>
     </form>
-    <a href="logout.php">Déconnexion</a>
-    <a href="index.php">Retour à l'accueil</a>
+        <a href="logout.php">Déconnexion</a>
+       
+     
 </body>
 </html>
 
