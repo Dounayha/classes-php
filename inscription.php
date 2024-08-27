@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Inscription</title>
 </head>
 <body>
+<?php include'header.php'?>
     <h1>Inscription</h1>
     <p><?php echo $result; ?></p>
     <form method="post">
@@ -55,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="submit" value="S'inscrire">
     </form>
     <a href="index.php">Retour à l'accueil</a>
+    <?php include'footer.php'?>
 </body>
 </html>
 

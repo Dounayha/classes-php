@@ -44,6 +44,7 @@ $connected = $user->isConnected();
     <title>Suppression</title>
 </head>
 <body>
+<?php include'header.php'?>
     <h1>Suppression</h1>
     <?php if ($connected): ?>
         <p><?php echo htmlspecialchars($result); ?></p>

@@ -19,6 +19,7 @@ if (isset($_SESSION['user'])) {
     <title>Déconnexion</title>
 </head>
 <body>
+<?php include'header.php'?>
     <h1>Déconnexion réussie</h1>
     <p>Vous avez été déconnecté .</p>
     <form action="connexion.php" method="get">
@@ -27,5 +28,7 @@ if (isset($_SESSION['user'])) {
     <form action="index.php" method="get">
         <input type="submit" value="Retour à l'accueil">
     </form>
+    <?php include'footer.php'?>
+
 </body>
 </html>

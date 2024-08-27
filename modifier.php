@@ -71,6 +71,7 @@ $currentUserInfo = $_SESSION['user'];
     <title>Modifier les informations</title>
 </head>
 <body>
+<?php include'header.php'?>
     <h1>Modifier les informations</h1>
     <p><?php echo htmlspecialchars($result); ?></p>
 
@@ -91,6 +92,8 @@ $currentUserInfo = $_SESSION['user'];
     </form>
 
     <a href="logout.php">Déconnexion</a>
+    <?php include'footer.php'?>
+
 </body>
 </html>
 

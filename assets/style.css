@@ -126,4 +126,44 @@ a:hover{
     text-decoration: none;
 }
 
+footer {
+    background-color: #ff69b4; /* Couleur de fond rose Barbie */
+    color: white; /* Couleur du texte blanche */
+    padding: 20px;
+    text-align: center;
+    border-top: 5px solid #ff1493; /* Bordure supérieure rose plus foncée */
+    font-family: 'Arial', sans-serif;
+}
+
+footer .footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+footer p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style-type: none; /* Enlève les puces */
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 5px;
+}
+
+footer ul li strong {
+    font-weight: bold;
+}
+
+footer a {
+    color: white; /* Lien en blanc */
+    text-decoration: none; /* Pas de soulignement */
+}
+
+footer a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+}
 

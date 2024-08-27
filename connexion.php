@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Connexion</title>
 </head>
 <body>
+<?php include'header.php'?>
     <h1>Connexion</h1>
     <p><?php echo $result; ?></p>
     <form method="post">
@@ -48,6 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="submit" value="Connecter">
     </form>
     <a href="index.php">Retour à l'accueil</a>
+    <?php include'footer.php'?>
+
 </body>
 </html>
 
