@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if ($success) {
         // Redirection vers la page de connexion
-        header('Location: connexion.php');
+        header('Location: connexionpdo.php');
         exit();
     } else {
         $result = 'Échec de l\'inscription.';
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Inscription</title>
 </head>
 <body>
-<?php include '../header.php'; ?>
+<?php include 'header.php'; ?>
     <h1>Inscription</h1>
     <p><?php echo $result; ?></p>
     <form method="post">
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label>Lastname: <input type="text" name="lastname" required></label><br>
         <input type="submit" value="S'inscrire">
     </form>
-    <a href="../index.php">Retour à l'accueil</a>
+    <a href="index.php">Retour à l'accueil</a>
 <?php include '../_footer.php'; ?>
 </body>
 </html>
