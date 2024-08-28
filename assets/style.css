@@ -127,11 +127,11 @@ a:hover{
 }
 
 footer {
-    background-color: #ff69b4; /* Couleur de fond rose Barbie */
-    color: white; /* Couleur du texte blanche */
+    background-color: #ff69b4;
+    color: white; 
     padding: 20px;
     text-align: center;
-    border-top: 5px solid #ff1493; /* Bordure supérieure rose plus foncée */
+    border-top: 5px solid #ff1493; 
     font-family: 'Arial', sans-serif;
 }
 
@@ -146,7 +146,7 @@ footer p {
 }
 
 footer ul {
-    list-style-type: none; /* Enlève les puces */
+    list-style-type: none;
     padding: 0;
 }
 
@@ -159,11 +159,49 @@ footer ul li strong {
 }
 
 footer a {
-    color: white; /* Lien en blanc */
-    text-decoration: none; /* Pas de soulignement */
+    color: white; 
+    text-decoration: none; 
 }
 
 footer a:hover {
-    text-decoration: underline; /* Soulignement au survol */
+    text-decoration: underline; 
 }
 
+
+main {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #ffe4e1; 
+}
+
+/* Section d'introduction */
+.intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.intro h2 {
+    color: #ff69b4; 
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.intro p {
+    font-size: 1.2em;
+}
+
+
+.about-us {
+    text-align: center;
+}
+
+.about-us h3 {
+    color: #ff69b4;
+    margin-bottom: 10px;
+}
+
+.about-us p {
+    font-size: 1.1em;
+    line-height: 1.5;
+}

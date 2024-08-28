@@ -7,5 +7,4 @@
             <li><strong>Adresse :</strong> 123 Rue de la Mode, Marseille, France</li>
         </ul>
     </div>
-
 </footer>
