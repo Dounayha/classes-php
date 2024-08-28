@@ -88,24 +88,6 @@ a:hover {
 }
 
 
-form[onsubmit] {
-    margin-top: 20px;
-}
-
-form[onsubmit] input[type="submit"] {
-    background-color: #ff4081; 
-    transition: background-color 0.3s ease;
-}
-
-form[onsubmit] input[type="submit"]:hover {
-    background-color: #f50057; 
-}
-
-
-form[action] {
-    display: inline-block;
-    margin: 20px;
-}
 
 
 header {
@@ -175,7 +157,7 @@ main {
     background-color: #ffe4e1; 
 }
 
-/* Section d'introduction */
+
 .intro {
     text-align: center;
     margin-bottom: 30px;
