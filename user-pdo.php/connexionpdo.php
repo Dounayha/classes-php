@@ -1,9 +1,9 @@
 <?php
-session_start(); // Démarre la session
+session_start();
 
 require_once 'Userpdo.php';
 
-// Connexion à la base de données avec PDO
+
 $dsn = 'mysql:host=localhost;dbname=classes;charset=utf8';
 $username = 'root';
 $password = '';
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user->connect($_POST['login'], $_POST['password'])) {
         // Stocker les informations de l'utilisateur dans la session
         $_SESSION['user'] = $user->getAllInfos();
-        // Rediriger vers la page de modification
+        
         header('Location: ../modifier.php');
         exit();
     } else {

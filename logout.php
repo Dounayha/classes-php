@@ -1,6 +1,5 @@
 <?php
-session_start(); // Démarre la session
-
+session_start(); 
 // Déconnexion de l'utilisateur
 if (isset($_SESSION['user'])) {
     session_unset(); // Supprime toutes les variables de session

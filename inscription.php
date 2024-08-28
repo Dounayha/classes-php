@@ -1,7 +1,7 @@
 <?php
 require_once 'User.php';
 
-// Connexion à la base de données
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );
     
     if ($success) {
-        // Redirection vers la page de connexion
+        
         header('Location: connexion.php');
         exit();
     } else {

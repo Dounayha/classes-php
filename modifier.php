@@ -30,7 +30,7 @@ $result = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['delete'])) {
         // Suppression du compte
-        $success = $user->delete(); // Assurez-vous que cette méthode est implémentée dans User.php
+        $success = $user->delete(); 
         if ($success) {
             session_unset(); // Supprime toutes les variables de session
             session_destroy(); // Détruit la session
@@ -75,7 +75,7 @@ $currentUserInfo = $_SESSION['user'];
     <h1>Modifier les informations</h1>
     <p><?php echo htmlspecialchars($result); ?></p>
 
-    <!-- Formulaire de mise à jour des informations -->
+    
     <form method="post">
         <label>Login: <input type="text" name="login" value="<?php echo htmlspecialchars($currentUserInfo['login']); ?>" required></label><br>
         <label>Password: <input type="password" name="password" required></label><br>
@@ -85,7 +85,7 @@ $currentUserInfo = $_SESSION['user'];
         <input type="submit" value="Mettre à jour">
     </form>
 
-    <!-- Formulaire de suppression du compte -->
+    
     <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
         <input type="hidden" name="delete" value="1">
         <input type="submit" value="Supprimer le compte">
