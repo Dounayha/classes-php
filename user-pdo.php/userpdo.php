@@ -8,23 +8,21 @@ class User {
     public $firstname;
     public $lastname;
     private $connected = false;
-    private $mysqli;
+    private $pdo;
 
-
-    public function __construct($mysqli) {
-        $this->mysqli = $mysqli;
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
     }
 
-    //  pour enregistrer un nouvel utilisateur
+    // Pour enregistrer un nouvel utilisateur
     public function register($login, $password, $email, $firstname, $lastname) {
         // Hash du mot de passe
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
         // Préparation et exécution de la requête
-        $stmt = $this->mysqli->prepare("INSERT INTO utilisateurs (login, password, email, firstname, lastname) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $login, $hashed_password, $email, $firstname, $lastname);
-        if ($stmt->execute()) {
-            $this->id = $stmt->insert_id;
+        $stmt = $this->pdo->prepare("INSERT INTO utilisateurs (login, password, email, firstname, lastname) VALUES (?, ?, ?, ?, ?)");
+        if ($stmt->execute([$login, $hashed_password, $email, $firstname, $lastname])) {
+            $this->id = $this->pdo->lastInsertId();
             $this->login = $login;
             $this->email = $email;
             $this->firstname = $firstname;
@@ -36,30 +34,26 @@ class User {
         }
     }
 
-    //  pour connecter un utilisateur
+    // Pour connecter un utilisateur
     public function connect($login, $password) {
-        $stmt = $this->mysqli->prepare("SELECT id, password, email, firstname, lastname FROM utilisateurs WHERE login = ?");
-        $stmt->bind_param("s", $login);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = $this->pdo->prepare("SELECT id, password, email, firstname, lastname FROM utilisateurs WHERE login = ?");
+        $stmt->execute([$login]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            if (password_verify($password, $user['password'])) {
-                $this->id = $user['id'];
-                $this->login = $login;
-                $this->password = $user['password'];
-                $this->email = $user['email'];
-                $this->firstname = $user['firstname'];
-                $this->lastname = $user['lastname'];
-                $this->connected = true;
-                return true;
-            }
+        if ($user && password_verify($password, $user['password'])) {
+            $this->id = $user['id'];
+            $this->login = $login;
+            $this->password = $user['password'];
+            $this->email = $user['email'];
+            $this->firstname = $user['firstname'];
+            $this->lastname = $user['lastname'];
+            $this->connected = true;
+            return true;
         }
         return false;
     }
 
-    // pour déconnecter un utilisateur
+    // Pour déconnecter un utilisateur
     public function disconnect() {
         $this->id = null;
         $this->login = null;
@@ -70,12 +64,11 @@ class User {
         $this->connected = false;
     }
 
-    //  supprimer un utilisateur
+    // Supprimer un utilisateur
     public function delete() {
         if ($this->connected) {
-            $stmt = $this->mysqli->prepare("DELETE FROM utilisateurs WHERE id = ?");
-            $stmt->bind_param("i", $this->id);
-            if ($stmt->execute()) {
+            $stmt = $this->pdo->prepare("DELETE FROM utilisateurs WHERE id = ?");
+            if ($stmt->execute([$this->id])) {
                 $this->disconnect();
                 return true;
             }
@@ -83,13 +76,12 @@ class User {
         return false;
     }
 
-    // mettre à jour les informations d'un utilisateur
+    // Mettre à jour les informations d'un utilisateur
     public function update($login, $password, $email, $firstname, $lastname) {
         if ($this->connected) {
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $this->mysqli->prepare("UPDATE utilisateurs SET login = ?, password = ?, email = ?, firstname = ?, lastname = ? WHERE id = ?");
-            $stmt->bind_param("sssssi", $login, $hashed_password, $email, $firstname, $lastname, $this->id);
-            if ($stmt->execute()) {
+            $stmt = $this->pdo->prepare("UPDATE utilisateurs SET login = ?, password = ?, email = ?, firstname = ?, lastname = ? WHERE id = ?");
+            if ($stmt->execute([$login, $hashed_password, $email, $firstname, $lastname, $this->id])) {
                 $this->login = $login;
                 $this->password = $hashed_password;
                 $this->email = $email;
@@ -101,12 +93,12 @@ class User {
         return false;
     }
 
-    //  pour vérifier si l'utilisateur est connecté
+    // Pour vérifier si l'utilisateur est connecté
     public function isConnected() {
-        return $this->connected;
+        return $this->connected;  // Le point-virgule manquant est ajouté ici
     }
 
-    // pour récupérer toutes les informations de l'utilisateur
+    // Pour récupérer toutes les informations de l'utilisateur
     public function getAllInfos() {
         return [
             'id' => $this->id,
@@ -117,19 +109,22 @@ class User {
         ];
     }
 
-    //  pour récupérer les attributs spécifiques
+    // Pour récupérer le login
     public function getLogin() {
         return $this->login;
     }
 
+    // Pour récupérer l'email
     public function getEmail() {
         return $this->email;
     }
 
+    // Pour récupérer le prénom
     public function getFirstname() {
         return $this->firstname;
     }
 
+    // Pour récupérer le nom de famille
     public function getLastname() {
         return $this->lastname;
     }
