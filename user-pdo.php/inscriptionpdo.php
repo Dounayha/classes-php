@@ -63,6 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </html>
 
 <?php
-// Fermeture de la connexion
+
 $connexion = null;
 ?>
