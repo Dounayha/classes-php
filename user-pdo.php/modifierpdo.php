@@ -30,7 +30,7 @@ $result = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['delete'])) {
         // Suppression du compte
-        $success = $user->delete(); // Assurez-vous que cette méthode est implémentée dans User.php
+        $success = $user->delete(); 
         if ($success) {
             session_unset(); // Supprime toutes les variables de session
             session_destroy(); // Détruit la session
@@ -58,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Pré-remplissage du formulaire avec les informations actuelles
 $currentUserInfo = $_SESSION['user'];
 ?>
 
